@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Youshuang 的个人网站，记录作品、思考与正在探索的方向。" />
+  <meta name="theme-color" content="#f3f0e8" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='50' fill='%23ff5b35'/%3E%3Ctext x='50' y='69' text-anchor='middle' font-family='Georgia' font-size='62' fill='%23f3f0e8'%3EY%3C/text%3E%3C/svg%3E" />
+  <title>Youshuang — 个人主页</title>
+  <style>
+    :root {
+      --paper: #f3f0e8;
+      --ink: #171714;
+      --muted: #6d6a61;
+      --line: rgba(23, 23, 20, 0.17);
+      --accent: #ff5b35;
+      --acid: #d7ff55;
+      --panel: rgba(255, 255, 255, 0.5);
+      --serif: Georgia, "Times New Roman", "Noto Serif SC", serif;
+      --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 85% 9%, rgba(255, 91, 53, 0.13), transparent 27rem),
+        var(--paper);
+      font-family: var(--sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    ::selection { color: var(--ink); background: var(--acid); }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      pointer-events: none;
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
+    }
+
+    .shell { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      background: rgba(243, 240, 232, 0.83);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 760; letter-spacing: -0.03em; }
+    .brand-dot { width: 11px; height: 11px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 5px rgba(255, 91, 53, 0.13); }
+
+    .nav-links { display: flex; align-items: center; gap: 28px; color: var(--muted); font-size: 14px; }
+    .nav-links a { transition: color .2s ease; }
+    .nav-links a:hover { color: var(--ink); }
+
+    .menu-button { display: none; border: 0; background: transparent; cursor: pointer; padding: 8px; }
+
+    .hero {
+      min-height: calc(100vh - 74px);
+      display: grid;
+      align-content: center;
+      padding: 84px 0 64px;
+      overflow: hidden;
+    }
+
+    .eyebrow { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 44px; height: 1px; background: currentColor; }
+
+    h1 {
+      max-width: 1050px;
+      margin: 30px 0 34px;
+      font-family: var(--serif);
+      font-size: clamp(64px, 10.4vw, 154px);
+      font-weight: 500;
+      line-height: .84;
+      letter-spacing: -.075em;
+    }
+
+    h1 .line { display: block; }
+    h1 .offset { margin-left: clamp(20px, 11vw, 150px); font-style: italic; }
+    .accent-mark { color: var(--accent); font-family: var(--sans); font-style: normal; font-size: .66em; vertical-align: top; }
+
+    .hero-bottom { display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 50px; margin-top: 20px; }
+    .hero-copy { max-width: 560px; color: var(--muted); font-size: clamp(17px, 2vw, 22px); }
+    .hero-actions { display: flex; justify-content: flex-end; align-items: center; gap: 24px; }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 0 24px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: transform .2s ease, background .2s ease, color .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button.primary { color: var(--paper); background: var(--ink); }
+    .button.primary:hover { background: var(--accent); border-color: var(--accent); }
+    .button.ghost { border-color: transparent; padding-inline: 4px; }
+    .button .arrow { transition: transform .2s ease; }
+    .button:hover .arrow { transform: translate(3px, -3px); }
+
+    .marquee { overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--acid); }
+    .marquee-track { display: flex; width: max-content; animation: move 22s linear infinite; }
+    .marquee-item { display: flex; align-items: center; gap: 32px; padding: 17px 16px; font-size: 13px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; white-space: nowrap; }
+    .marquee-item::after { content: "✦"; font-size: 16px; }
+    @keyframes move { to { transform: translateX(-50%); } }
+
+    section { padding: 120px 0; border-bottom: 1px solid var(--line); scroll-margin-top: 74px; }
+    .section-head { display: grid; grid-template-columns: .7fr 1.3fr; gap: 50px; align-items: start; margin-bottom: 64px; }
+    .section-kicker { color: var(--muted); font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+    .section-title { margin: 0; font-family: var(--serif); font-size: clamp(40px, 6vw, 78px); font-weight: 500; line-height: 1; letter-spacing: -.055em; }
+
+    .about-grid { display: grid; grid-template-columns: .7fr 1.3fr; gap: 50px; }
+    .portrait {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      min-height: 460px;
+      overflow: hidden;
+      background: var(--ink);
+      border-radius: 2px;
+    }
+    .portrait::before {
+      content: "Y";
+      position: absolute;
+      left: 50%;
+      bottom: -20%;
+      transform: translateX(-50%);
+      color: var(--paper);
+      font-family: var(--serif);
+      font-size: min(36vw, 430px);
+      font-style: italic;
+      line-height: 1;
+      opacity: .94;
+    }
+    .portrait::after {
+      content: "开放合作";
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      padding: 8px 13px;
+      color: var(--ink);
+      background: var(--acid);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .portrait-ring { position: absolute; inset: 12% 8%; z-index: 2; border: 1px solid rgba(243,240,232,.32); border-radius: 50%; transform: rotate(-13deg); }
+
+    .about-copy { display: flex; flex-direction: column; justify-content: space-between; gap: 52px; }
+    .about-lead { margin: 0; font-size: clamp(25px, 3.1vw, 43px); line-height: 1.25; letter-spacing: -.035em; }
+    .about-lead em { font-family: var(--serif); font-weight: 500; }
+    .about-notes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+    .note { padding-top: 18px; border-top: 1px solid var(--line); }
+    .note-label { margin-bottom: 9px; color: var(--muted); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+    .note p { margin: 0; }
+
+    .project-list { border-top: 1px solid var(--line); }
+    .project {
+      display: grid;
+      grid-template-columns: 110px 1fr auto;
+      gap: 30px;
+      align-items: center;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--line);
+      transition: padding .25s ease, color .25s ease;
+    }
+    .project:hover { padding-left: 18px; color: var(--accent); }
+    .project-no { color: var(--muted); font-family: var(--serif); font-style: italic; }
+    .project h3 { margin: 0 0 6px; font-size: clamp(24px, 3vw, 40px); letter-spacing: -.04em; }
+    .project p { margin: 0; color: var(--muted); font-size: 14px; }
+    .project-tag { padding: 8px 12px; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 999px; font-size: 12px; white-space: nowrap; }
+
+    .thinking-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .thought {
+      min-height: 290px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 28px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      transition: transform .2s ease, background .2s ease;
+    }
+    .thought:hover { transform: translateY(-6px); background: rgba(255,255,255,.76); }
+    .thought-meta { color: var(--muted); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+    .thought h3 { margin: 0; font-family: var(--serif); font-size: 31px; font-weight: 500; line-height: 1.16; letter-spacing: -.035em; }
+    .thought-arrow { align-self: flex-end; font-size: 22px; }
+
+    .contact { padding-block: 140px 80px; border-bottom: 0; }
+    .contact-title { margin: 0; font-family: var(--serif); font-size: clamp(60px, 11vw, 150px); font-weight: 500; line-height: .92; letter-spacing: -.07em; }
+    .contact-title span { color: var(--accent); font-style: italic; }
+    .contact-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; margin-top: 72px; padding-top: 28px; border-top: 1px solid var(--line); }
+    .contact-copy { max-width: 520px; color: var(--muted); font-size: 18px; }
+    .email { display: inline-block; font-size: clamp(20px, 2.4vw, 32px); font-weight: 750; letter-spacing: -.03em; border-bottom: 2px solid var(--ink); }
+
+    footer { padding: 28px 0 42px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 24px; color: var(--muted); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .75s ease, transform .75s cubic-bezier(.2,.7,.2,1); }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .marquee-track { animation: none; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    @media (max-width: 760px) {
+      .shell { width: min(100% - 28px, 1180px); }
+      .nav-inner { min-height: 64px; }
+      .menu-button { display: block; }
+      .nav-links {
+        position: absolute;
+        inset: 64px 0 auto;
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 22px 14px 26px;
+        background: var(--paper);
+        border-bottom: 1px solid var(--line);
+      }
+      .nav-links.open { display: flex; }
+      .hero { min-height: calc(100svh - 64px); padding: 64px 0 48px; }
+      h1 { font-size: clamp(58px, 22vw, 92px); }
+      h1 .offset { margin-left: 8vw; }
+      .hero-bottom, .section-head, .about-grid { grid-template-columns: 1fr; }
+      .hero-actions { justify-content: flex-start; flex-wrap: wrap; }
+      section { padding: 84px 0; }
+      .section-head { gap: 18px; margin-bottom: 44px; }
+      .portrait { min-height: 380px; }
+      .about-notes { grid-template-columns: 1fr; }
+      .project { grid-template-columns: 54px 1fr; gap: 14px; }
+      .project-tag { display: none; }
+      .thinking-grid { grid-template-columns: 1fr; }
+      .thought { min-height: 230px; }
+      .contact { padding-top: 100px; }
+      .contact-row { align-items: flex-start; flex-direction: column; }
+      .footer-inner { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <nav class="nav" aria-label="主导航">
+    <div class="shell nav-inner">
+      <a class="brand" href="#top" aria-label="返回顶部"><span class="brand-dot"></span><span>YOUSHUANG</span></a>
+      <button class="menu-button" type="button" aria-label="打开菜单" aria-expanded="false">菜单</button>
+      <div class="nav-links">
+        <a href="#about">关于</a>
+        <a href="#work">作品</a>
+        <a href="#thinking">思考</a>
+        <a href="#contact">联系</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero shell">
+      <div class="eyebrow reveal">Personal space · 2026</div>
+      <h1 class="reveal">
+        <span class="line">你好，我是</span>
+        <span class="line offset">Youshuang<span class="accent-mark">.</span></span>
+      </h1>
+      <div class="hero-bottom reveal">
+        <p class="hero-copy">欢迎来到我的数字空间。这里收集作品、过程与想法，也记录每一次认真探索的痕迹。</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#work">查看作品 <span class="arrow">↗</span></a>
+          <a class="button ghost" href="#contact">和我聊聊 <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </header>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <div class="marquee-item">Curiosity · Craft · Clarity · Keep making</div>
+        <div class="marquee-item">Curiosity · Craft · Clarity · Keep making</div>
+        <div class="marquee-item">Curiosity · Craft · Clarity · Keep making</div>
+        <div class="marquee-item">Curiosity · Craft · Clarity · Keep making</div>
+      </div>
+    </div>
+
+    <section id="about">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="section-kicker">01 / 关于我</div>
+          <h2 class="section-title">把复杂的事情，<br />做得清楚而有趣。</h2>
+        </div>
+        <div class="about-grid">
+          <div class="portrait reveal" role="img" aria-label="Youshuang 的抽象字母肖像"><span class="portrait-ring"></span></div>
+          <div class="about-copy reveal">
+            <p class="about-lead">我在意好问题，也享受把模糊的想法一步步变成<em>真实、好用、有温度</em>的作品。</p>
+            <div class="about-notes">
+              <div class="note">
+                <div class="note-label">正在关注</div>
+                <p>AI 产品、数字体验与内容表达</p>
+              </div>
+              <div class="note">
+                <div class="note-label">工作方式</div>
+                <p>研究、梳理、快速原型与持续迭代</p>
+              </div>
+              <div class="note">
+                <div class="note-label">当前状态</div>
+                <p>持续学习，保持好奇，欢迎交流</p>
+              </div>
+              <div class="note">
+                <div class="note-label">所在时区</div>
+                <p>China Standard Time · UTC+8</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="section-kicker">02 / 精选作品</div>
+          <h2 class="section-title">一些值得被<br />认真讲述的项目。</h2>
+        </div>
+        <div class="project-list reveal">
+          <a class="project" href="#contact">
+            <span class="project-no">01</span>
+            <span><h3>项目案例，即将更新</h3><p>在这里介绍你的代表项目、职责与最终成果</p></span>
+            <span class="project-tag">产品 / 设计</span>
+          </a>
+          <a class="project" href="#contact">
+            <span class="project-no">02</span>
+            <span><h3>一次从零到一的尝试</h3><p>写下问题、过程，以及你从中获得的新认识</p></span>
+            <span class="project-tag">研究 / 实践</span>
+          </a>
+          <a class="project" href="#contact">
+            <span class="project-no">03</span>
+            <span><h3>正在发生的新探索</h3><p>分享你最近正在推进或持续关注的方向</p></span>
+            <span class="project-tag">进行中</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="thinking">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="section-kicker">03 / 思考与记录</div>
+          <h2 class="section-title">把思考留下，<br />让经验继续生长。</h2>
+        </div>
+        <div class="thinking-grid">
+          <a class="thought reveal" href="#contact"><span class="thought-meta">Note · 01</span><h3>这里可以放一篇你最近写下的文章</h3><span class="thought-arrow">↗</span></a>
+          <a class="thought reveal" href="#contact"><span class="thought-meta">Note · 02</span><h3>一个正在反复思考的问题</h3><span class="thought-arrow">↗</span></a>
+          <a class="thought reveal" href="#contact"><span class="thought-meta">Note · 03</span><h3>近期阅读、观察与灵感片段</h3><span class="thought-arrow">↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="shell">
+        <div class="section-kicker reveal">04 / 保持联系</div>
+        <h2 class="contact-title reveal">一起创造点<br /><span>有意思的事。</span></h2>
+        <div class="contact-row reveal">
+          <p class="contact-copy">有合作想法、想交换观点，或者只是想打个招呼，都欢迎来信。</p>
+          <!-- 请把下面的邮箱改成你自己的真实邮箱 -->
+          <a class="email" href="mailto:hello@example.com">hello@example.com ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner">
+      <span>© <span id="year"></span> Youshuang</span>
+      <span>Made with care & curiosity</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const menuButton = document.querySelector('.menu-button');
+    const navLinks = document.querySelector('.nav-links');
+    menuButton.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(open));
+      menuButton.setAttribute('aria-label', open ? '关闭菜单' : '打开菜单');
+      menuButton.textContent = open ? '关闭' : '菜单';
+    });
+    navLinks.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuButton.setAttribute('aria-expanded', 'false');
+      menuButton.setAttribute('aria-label', '打开菜单');
+      menuButton.textContent = '菜单';
+    });
+
+    const reveal = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          reveal.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach((element) => reveal.observe(element));
+  </script>
+</body>
+</html>
