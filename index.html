@@ -294,6 +294,12 @@
     .project-description .blank-line { height: 15px; margin: 6px 0; }
     .tag-row { display: flex; gap: 7px; margin-top: auto; }
     .tag-empty { width: 54px; height: 22px; border: 1px dashed #b7c1cd; border-radius: 999px; }
+    a.project-card { transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+    a.project-card:hover { transform: translateY(-3px); border-color: #9eb6e8; box-shadow: 0 14px 30px rgba(40,109,244,.10); }
+    a.project-card .project-name { height: auto; min-height: 52px; padding-bottom: 10px; font-size: 21px; font-weight: 750; line-height: 1.25; }
+    a.project-card .project-description { color: var(--muted); font-size: 13px; line-height: 1.65; }
+    a.project-card .tag-row { flex-wrap: wrap; }
+    .project-tag { padding: 4px 8px; border: 1px solid #c4d2ec; border-radius: 999px; color: var(--blue); background: rgba(231,239,255,.65); font-family: var(--mono); font-size: 9px; letter-spacing: .03em; }
 
     .note-list { border-top: 1px solid var(--line); }
     .note-row { display: grid; grid-template-columns: 86px 1fr 80px; gap: 20px; align-items: center; min-height: 78px; border-bottom: 1px solid var(--line); }
@@ -493,22 +499,21 @@
               <div class="section-count">03 ITEMS</div>
             </div>
             <div class="project-grid">
-              <!-- 分别填写项目名称、介绍、技术标签和链接 -->
-              <article class="project-card">
-                <div class="project-index">PROJECT 01</div><div class="project-name"></div>
-                <div class="project-description"><div class="blank-line"></div><div class="blank-line short"></div></div>
-                <div class="tag-row"><span class="tag-empty"></span><span class="tag-empty"></span></div>
-              </article>
-              <article class="project-card">
-                <div class="project-index">PROJECT 02</div><div class="project-name"></div>
-                <div class="project-description"><div class="blank-line"></div><div class="blank-line short"></div></div>
-                <div class="tag-row"><span class="tag-empty"></span><span class="tag-empty"></span></div>
-              </article>
-              <article class="project-card">
-                <div class="project-index">PROJECT 03</div><div class="project-name"></div>
-                <div class="project-description"><div class="blank-line"></div><div class="blank-line short"></div></div>
-                <div class="tag-row"><span class="tag-empty"></span><span class="tag-empty"></span></div>
-              </article>
+              <a class="project-card" href="https://github.com/youshuang123/personal-workbench" target="_blank" rel="noreferrer">
+                <div class="project-index">PROJECT 01 · GITHUB ↗</div><div class="project-name">个人 AI 工作台</div>
+                <div class="project-description">支持主 Agent、多子 Agent、群聊协作、独立模型配置与本机桌面操控的个人 AI 助手。</div>
+                <div class="tag-row"><span class="project-tag">MULTI-AGENT</span><span class="project-tag">FASTAPI</span><span class="project-tag">DESKTOP</span></div>
+              </a>
+              <a class="project-card" href="https://github.com/youshuang123/mini-game-studio" target="_blank" rel="noreferrer">
+                <div class="project-index">PROJECT 02 · GITHUB ↗</div><div class="project-name">AI 小游戏创作工作台</div>
+                <div class="project-description">用一句中文描述生成可试玩、可修改、可发布的网页小游戏，内置预检与访问管理。</div>
+                <div class="tag-row"><span class="project-tag">NEXT.JS</span><span class="project-tag">FASTAPI</span><span class="project-tag">DEEPSEEK</span></div>
+              </a>
+              <a class="project-card" href="https://github.com/youshuang123/math-island" target="_blank" rel="noreferrer">
+                <div class="project-index">PROJECT 03 · GITHUB ↗</div><div class="project-name">数学岛 · AI 闯关游戏</div>
+                <div class="project-description">面向儿童的 AI 数学闯关游戏，提供渐进式练习、代码验算、内容安全与语音降级。</div>
+                <div class="tag-row"><span class="project-tag">REACT</span><span class="project-tag">FASTAPI</span><span class="project-tag">AI EDUCATION</span></div>
+              </a>
             </div>
           </section>
 
